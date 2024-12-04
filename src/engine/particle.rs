@@ -1,19 +1,21 @@
-use crate::engine::manager::Frame;
-
 use crate::engine::material::Material;
-
+use super::manager::ParticlePender;
 use super::vector2d::Vector2D;
 
 pub trait Particle {
-    fn update(&mut self, pending_queue: &mut Vec<Box<dyn Particle>>, deletion_queue: &mut Vec<usize>);
-
-    fn code(&mut self, pending_queue: &mut Vec<Box<dyn Particle>>, deletion_queue: &mut Vec<usize>);
+    fn update(&mut self, delta: f64, pending_queue: &mut ParticlePender, deletion_queue: &mut Vec<usize>);
 
     fn id(&self) -> usize;
 
     fn set_id(&mut self, new_id: usize);
 
     fn material(&self) -> Material;
+
+    fn get_position(&self) -> Vector2D;
+    fn set_position(&mut self);
+
+    fn get_velocity(&self) -> Vector2D;
+    fn set_velocity(&mut self);
 }
 
 pub struct BasicParticle {
